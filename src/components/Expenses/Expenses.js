@@ -2,12 +2,20 @@ import "./Expenses.css";
 import ExpenseItem from "./ExpenseItem";
 import Card from "../UI/Card";
 import ExpensesFilter from "./ExpenseFilter";
+import React, { useState } from "react";
 
 const Expenses = (props) => {
+  const [chosenValue, setChosenValue] = useState("");
+
+  const selectValueHandler = (value) => {
+    // console.log(value + "from expenses.js");
+    setChosenValue(value);
+  };
+
   return (
     <div>
       <Card className="expenses">
-        <ExpensesFilter />
+        <ExpensesFilter onSelectChange={selectValueHandler} />
         <ExpenseItem
           title={props.list[0].title}
           amount={props.list[0].amount}
