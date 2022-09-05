@@ -5,12 +5,12 @@ import "./NewExpense.css";
 const NewExpense = (prop) => {
   const saveExpenseHandler = (savedExpense) => {
     console.log(savedExpense + "From New Expense");
-    const expense = {
+    const expenses = {
       ...savedExpense,
-      id: Math.Random().toString(),
+      id: Math.random().toString(),
     };
 
-    prop.OnExpenseAdd(expense);
+    prop.OnExpenseAdd(expenses);
   };
 
   return (

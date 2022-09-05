@@ -1,41 +1,29 @@
 import "./Expenses.css";
-import ExpenseItem from "./ExpenseItem";
 import Card from "../UI/Card";
 import ExpensesFilter from "./ExpenseFilter";
 import React, { useState } from "react";
+import ExpenseList from "./ExpenseList";
 
 const Expenses = (props) => {
-  const [chosenValue, setChosenValue] = useState("");
+  const [chosenValue, setChosenValue] = useState("2021");
+
+  let filteredExpenses = props.list.filter((expense) => {
+    // eslint-disable-next-line
+    return expense.date.getFullYear() == chosenValue;
+  });
 
   const selectValueHandler = (value) => {
-    // console.log(value + "from expenses.js");
     setChosenValue(value);
   };
 
   return (
     <div>
       <Card className="expenses">
-        <ExpensesFilter onSelectChange={selectValueHandler} />
-        <ExpenseItem
-          title={props.list[0].title}
-          amount={props.list[0].amount}
-          date={props.list[0].date}
+        <ExpensesFilter
+          select={chosenValue}
+          onSelectChange={selectValueHandler}
         />
-        <ExpenseItem
-          title={props.list[1].title}
-          amount={props.list[1].amount}
-          date={props.list[1].date}
-        />
-        <ExpenseItem
-          title={props.list[2].title}
-          amount={props.list[2].amount}
-          date={props.list[2].date}
-        />
-        <ExpenseItem
-          title={props.list[3].title}
-          amount={props.list[3].amount}
-          date={props.list[3].date}
-        />
+        <ExpenseList item={filteredExpenses} />
       </Card>
     </div>
   );
