@@ -6,6 +6,7 @@ const ExpenseForm = (props) => {
   const [enteredTitle, setEnteredTitle] = useState("");
   const [enteredAmount, setEnteredAmount] = useState("");
   const [enteredDate, setEnteredDate] = useState("");
+  const [toggleForm, setToggleForm] = useState(false);
 
   const titleChangeHandler = (e) => {
     setEnteredTitle(e.target.value);
@@ -30,9 +31,28 @@ const ExpenseForm = (props) => {
     console.log(userInputs + "From the Form");
     props.onFormSubmit(userInputs);
     setEnteredTitle("");
+    b;
     setEnteredAmount("");
     setEnteredDate("");
   };
+
+  const newExpenseToggleHandler = () => {
+    setToggleForm((prevFormState) => {
+      return (prevFormState = !prevFormState);
+    });
+  };
+
+  if (toggleForm === false) {
+    return (
+      <form>
+        <div className="new-expense__actions">
+          <button type="submit" onClick={newExpenseToggleHandler}>
+            Add New Expense
+          </button>
+        </div>
+      </form>
+    );
+  }
 
   return (
     <form onSubmit={submitHandler}>
@@ -65,7 +85,9 @@ const ExpenseForm = (props) => {
             value={enteredDate}
           />
         </div>
+
         <div className="new-expense__actions">
+          <button onClick={newExpenseToggleHandler}>Cancel</button>
           <button type="submit">Add Expense</button>
         </div>
       </div>
